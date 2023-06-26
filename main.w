@@ -23,7 +23,6 @@ struct Url {
 }
 
 class Util {
-  extern "./util.js" static inflight jsonToArray(obj: Json): Array<Json>;
   extern "./util.js" static inflight parseUrl(url: str): Url;
 }
 
@@ -65,8 +64,8 @@ class GitHub {
       return "unknown";
     };
 
-    let issues = Util.jsonToArray(this._listAssigned(this.token.value()).get("data"));
-    let pulls = Util.jsonToArray(this._listPulls(this.token.value()).get("data").get("items"));
+    let issues = Json.values(this._listAssigned(this.token.value()).get("data"));
+    let pulls = Json.values(this._listPulls(this.token.value()).get("data").get("items"));
 
     for p in pulls.concat(issues) {
       let issue = GitHubIssue {
