@@ -166,27 +166,27 @@ class Gwomp {
       type: "header", 
       text: Json { 
         type: "plain_text", 
-        text: "What's on my plate?" 
+        text: "GitHub, what's on my plate?"
       } 
     });
 
     for repo in Json.keys(result) {
+      blocks.push(Json { 
+        type: "context", 
+        elements: [ { 
+          type: "mrkdwn", 
+          text: "*${repo}*"
+        } ]
+      });
 
-    blocks.push(Json { 
-      type: "context", 
-      elements: [ { 
-        type: "mrkdwn", 
-        text: "*${repo}*"
-      } ] 
-    });
+      let items = result.get(repo);
 
-    let items = result.get(repo);
       for item in items {
         blocks.push(Json { 
           type: "context", 
           elements: [ { 
             type: "mrkdwn", 
-            text: " - <${item.url}|${item.title}> (${item.repo}#${item.number})" 
+            text: "${item.title} <${item.url}|${item.repo}#${item.number}>"
           } ] 
         });
       }
